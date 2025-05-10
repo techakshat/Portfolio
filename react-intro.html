@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with React.js - Akshat's Blog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../theme.js"></script>
+    <style>
+        .blog-post-container {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+        .blog-post-content {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .blog-post-content h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content .date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-post-content .content {
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        .blog-post-content .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post-content .content h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .blog-post-content .content code {
+            background: var(--bg-color);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Akshat Dongre</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <div class="blog-post-container">
+        <a href="../blog.html" class="back-link">← Back to Blog</a>
+        
+        <div class="blog-post-content">
+            <h1>Getting Started with React.js</h1>
+            <div class="date">March 15, 2024</div>
+            
+            <div class="content">
+                <p>React.js has revolutionized the way we build user interfaces. As a JavaScript library developed by Facebook, it has become one of the most popular choices for building modern web applications. In this post, I'll share my journey of learning React and some key insights that helped me master this powerful library.</p>
+
+                <h2>Why React?</h2>
+                <p>React's component-based architecture makes it incredibly efficient for building complex user interfaces. Each component is a self-contained piece of code that manages its own state and can be reused throughout your application. This modular approach leads to more maintainable and scalable code.</p>
+
+                <h2>Key Concepts</h2>
+                <p>Here are some fundamental concepts that every React developer should understand:</p>
+                <ul>
+                    <li>Components and Props</li>
+                    <li>State Management</li>
+                    <li>Lifecycle Methods</li>
+                    <li>Hooks</li>
+                    <li>Virtual DOM</li>
+                </ul>
+
+                <h2>Getting Started</h2>
+                <p>To start a new React project, you can use Create React App:</p>
+                <code>npx create-react-app my-app</code>
+
+                <p>This sets up a new React project with all the necessary dependencies and configuration. From there, you can start building your components and developing your application.</p>
+
+                <h2>Best Practices</h2>
+                <p>Some best practices I've learned while working with React:</p>
+                <ul>
+                    <li>Keep components small and focused</li>
+                    <li>Use functional components with hooks</li>
+                    <li>Implement proper error boundaries</li>
+                    <li>Optimize performance with React.memo and useMemo</li>
+                    <li>Follow a consistent project structure</li>
+                </ul>
+
+                <p>React continues to evolve, and staying up-to-date with its latest features and best practices is crucial for any modern web developer. Whether you're building a small project or a large-scale application, React provides the tools and flexibility you need to create amazing user experiences.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Akshat Dongre. All rights reserved.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 

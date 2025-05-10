@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Template</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../theme.js"></script>
+    <style>
+        :root {
+            --primary-red: #FF3131;
+            --primary-red-hover: #ff5252;
+            --primary-red-light: rgba(255, 49, 49, 0.1);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            box-shadow: 0 2px 5px rgba(243, 19, 19, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            width: 60%;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+            background: var(--bg-primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            color: var(--primary-red);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .nav-links {
+                width: 70%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 92vh;
+                top: 8vh;
+                background-color: var(--bg-secondary);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                z-index: 1000;
+            }
+            .nav-links li {
+                opacity: 0;
+            }
+            .burger {
+                display: block;
+            }
+        }
+
+        .nav-active {
+            transform: translateX(0%);
+        }
+
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .blog-hero {
+            height: 50vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            background: var(--bg-primary);
+            padding: 8rem 1rem 0 1rem;
+            position: relative;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-red), #ff6b6b);
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        .blog-hero-content {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .blog-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .blog-hero-content h1 .highlight2 {
+            color: #811df3;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .blog-hero-content h1 .blog-text {
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .blog-hero-content h1 .dots {
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link, .prev-link {
+            display: inline-block;
+            margin: 2rem 0;
+            color: #ff3232;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: var(--bg-secondary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .back-link:hover, .prev-link:hover {
+            color: #ff5252;
+            transform: translateX(-5px);
+            background: var(--bg-primary);
+        }
+
+        .prev-link {
+            margin-top: 2rem;
+            margin-bottom: 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            float: right;
+        }
+
+        .next-button:hover {
+            background: var(--primary-red-hover);
+            transform: translateX(5px);
+        }
+
+        .next-button i {
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-blog {
+                top: auto;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+
+        .blog-content h2 {
+            color: var(--primary-red);
+            margin: 2rem 0 1rem;
+            font-size: 2rem;
+        }
+
+        .blog-content p {
+            color: var(--text-color);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .blog-content code {
+            background: var(--bg-primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--primary-red);
+        }
+
+        .blog-content pre {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .blog-content pre code {
+            color: var(--text-color);
+            background: none;
+            padding: 0;
+        }
+
+        .blog-content ul, .blog-content ol {
+            color: var(--text-color);
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-red);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .blog-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .blog-tag {
+            background: var(--primary-red-light);
+            color: var(--primary-red);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-color);
+            padding: 4rem 0 0 0;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), #ff6b6b);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section {
+            padding: 1rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-red);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-red);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-red);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 49, 49, 0.2);
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-red);
+            transform: translateX(5px);
+        }
+
+        .footer-section p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section p i {
+            color: var(--primary-red);
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-primary);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-bottom p i {
+            color: var(--primary-red);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-section p {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none;">Akshat Dongre</a>
+        <ul class="nav-links">
+            <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1 class="typing-text">
+                <span class="highlight2">BLOG POST</span>
+                <span class="blog-text"> TITLE</span>
+                <span class="dots">...</span>
+            </h1>
+            <p><span class="highlight">CATEGORY</span> | <span class="highlight">DATE</span> | <span class="highlight">AUTHOR</span></p>
+        </div>
+    </section>
+    <div class="blog-content">
+        <a href="../blog.html" class="back-link">← Back to Blog</a>
+        
+        <div class="blog-meta">
+            <div class="blog-date">
+                <i class="far fa-calendar"></i> March 15, 2024
+            </div>
+            <div class="blog-tags">
+                <span class="blog-tag">Technology</span>
+                <span class="blog-tag">Development</span>
+            </div>
+        </div>
+
+        <!-- Blog content goes here -->
+        <h2>Introduction</h2>
+        <p>Your introduction text goes here...</p>
+
+        <h2>Main Content</h2>
+        <p>Your main content goes here...</p>
+
+        <h2>Code Example</h2>
+        <pre><code>// Your code example goes here
+function example() {
+    console.log("Hello, World!");
+}</code></pre>
+
+        <h2>Conclusion</h2>
+        <p>Your conclusion text goes here...</p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <a href="#" class="prev-link">← Previous Post</a>
+            <a href="#" class="next-button">
+                Next Post <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Connect With Me</h3>
+                <p>Let's connect and discuss technology, development, and innovation.</p>
+                <div class="social-links">
+                    <a href="https://github.com/techakshat" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/dongreakshat" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="mailto:akshatdongre007@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="index.html#skills"><i class="fas fa-chevron-right"></i> Skills</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-envelope"></i> akshatdongre007@gmail.com</p>
+               
+                
+                <p><i class="fas fa-clock"></i> Available 24/7</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Akshat Dongre. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> by Akshat</p>
+        </div>
+    </footer>
+
+    <script>
+        const navSlide = () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+
+            burger.addEventListener('click', () => {
+                // Toggle Nav
+                nav.classList.toggle('nav-active');
+
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = '';
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
+
+                // Burger Animation
+                burger.classList.toggle('toggle');
+            });
+        }
+
+        navSlide();
+    </script>
+</body>
+</html> 
